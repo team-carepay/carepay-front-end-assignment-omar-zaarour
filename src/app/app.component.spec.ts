@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RequestService } from './services/request.service';
 import 'zone.js/testing';
-import { Component } from '@angular/core';
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   beforeEach(async () => {
@@ -30,7 +29,6 @@ describe('AppComponent', () => {
     // simulate user entering a new term into the input box
     termInput.value = '1122';
 
-    // Dispatch a DOM event so that Angular learns of input value change.
     termInput.dispatchEvent(new Event('input'));
     fixture.whenStable().then(() => {
       fixture.detectChanges();
@@ -45,14 +43,13 @@ describe('AppComponent', () => {
 
   it('should show the validation span with at least 3 characters', waitForAsync(() => {
     fixture.detectChanges();
-    // get the name's input and display elements from the DOM
+
     const hostElement: HTMLElement = fixture.nativeElement;
     const termInput: HTMLInputElement = hostElement.querySelector('input')!;
 
-    // simulate user entering a new term into the input box
+
     termInput.value = '11';
 
-    // Dispatch a DOM event so that Angular learns of input value change.
     termInput.dispatchEvent(new Event('input'));
     fixture.whenStable().then(() => {
       fixture.detectChanges();
@@ -65,14 +62,11 @@ describe('AppComponent', () => {
 
   it('should hide the validation span when the input value is valid', waitForAsync(() => {
     fixture.detectChanges();
-    // get the name's input and display elements from the DOM
     const hostElement: HTMLElement = fixture.nativeElement;
     const termInput: HTMLInputElement = hostElement.querySelector('input')!;
 
-    // simulate user entering a new term into the input box
     termInput.value = '112233445581';
 
-    // Dispatch a DOM event so that Angular learns of input value change.
     termInput.dispatchEvent(new Event('input'));
     fixture.whenStable().then(() => {
       fixture.detectChanges();

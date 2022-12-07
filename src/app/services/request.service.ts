@@ -12,7 +12,7 @@ export class RequestService {
   constructor(private HttpClient: HttpClient) {}
 
   // send request to get treatments
-  getTeatments(params: {}): Observable<Treatment[]> {
+  getTreatments(params: {}): Observable<Treatment[]> {
     return this.HttpClient.get<Treatment[]>(`${this.apiBaseUrl}/treatments`, {
       params,
     });

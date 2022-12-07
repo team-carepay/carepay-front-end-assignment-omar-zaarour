@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { debounceTime, startWith } from 'rxjs';
-import { Treatment } from './interfaces/treatment';
-import { RequestService } from './services/request.service';
-import { treatmentCodeValidator } from './validators/treatmentCode';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+import {debounceTime, startWith} from 'rxjs';
+import {Treatment} from './interfaces/treatment';
+import {RequestService} from './services/request.service';
+import {treatmentCodeValidator} from './validators/treatmentCode';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,9 @@ export class AppComponent implements OnInit {
     Validators.minLength(3),
     treatmentCodeValidator(),
   ]);
-  constructor(private requestService: RequestService) {}
+
+  constructor(private requestService: RequestService) {
+  }
 
   ngOnInit(): void {
     // subscribe to input changes
@@ -31,13 +33,19 @@ export class AppComponent implements OnInit {
         if (this.term.valid) {
           this.loading = true;
           this.requestService
-            .getTeatments({
+            .getTreatments({
               treatmentCode_like: value,
             })
-            .subscribe((value) => {
-              this.loading = false;
-              this.treatments = value;
-            });
+            .subscribe({
+              next: (value) => {
+                this.loading = false;
+                this.treatments = value
+              },
+              error: () => {
+                this.loading = false;
+                console.log('Error from backend API')
+              }
+            })
         }
       });
   }

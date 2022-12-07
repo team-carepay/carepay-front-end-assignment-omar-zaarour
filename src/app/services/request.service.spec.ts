@@ -1,7 +1,7 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TestBed } from '@angular/core/testing';
-import { Treatment } from '../interfaces/treatment';
-import { RequestService } from './request.service';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {TestBed} from '@angular/core/testing';
+import {Treatment} from '../interfaces/treatment';
+import {RequestService} from './request.service';
 
 describe('RequestService', () => {
   let service: RequestService;
@@ -72,9 +72,16 @@ describe('RequestService', () => {
   });
 
   it('#getObservableValue should return value from observable', (done: DoneFn) => {
-    service.getTeatments({}).subscribe((value) => {
-      expect(value).toEqual(testData);
-      done();
+    service.getTreatments({}).subscribe({
+      next: (value) => {
+        expect(value).toEqual(testData);
+        done();
+      },
+      error: (errorValue) => {
+        // handle error expectation if backend API isn't working
+        expect(errorValue.name).toEqual('HttpErrorResponse');
+        done();
+      }
     });
   });
 });

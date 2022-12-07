@@ -8,4 +8,4 @@ The Json-server package doesn't account for casing in string, so the search func
 
 ## Unit Testing
 
-I have acheived 100% code coverage by implementing 6 test cases
+I have implemented 6 unit tests with more than 85% code coverage
