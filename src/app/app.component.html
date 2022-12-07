@@ -1,0 +1,54 @@
+<div class="general-container">
+  <div class="search-container">
+    <div class="search-input">
+      <label for="term">Search:</label>
+      <input
+        [ngClass]="{
+          invalid: term.invalid
+        }"
+        id="term"
+        [formControl]="term"
+      />
+      <div class="loading-container">
+        <img [class.animate]="loading" src="assets/loader.png" alt="">
+      </div>
+    </div>
+    <div [class.show]="term.invalid" class="search-validation">
+      <span
+        class="validation-text"
+        *ngIf="term.invalid && term.errors?.['minlength']"
+        >At least 3 characters</span
+      >
+      <span
+        class="validation-text"
+        *ngIf="term.invalid && term.errors?.['codeNotValid'] && !term.errors?.['minlength']"
+        >At least 3 repeating characters</span
+      >
+    </div>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Treatment Code</th>
+          <th>Patient</th>
+          <th>Treatment Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let treatment of treatments">
+          <td>
+            {{ treatment.treatmentCode }}
+          </td>
+          <td>
+            {{ treatment.patient }}
+          </td>
+          <td>
+            {{ treatment.treatmentDate | date : "short" }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 *ngIf="!treatments.length && !loading">No data available</h3>
+</div>
